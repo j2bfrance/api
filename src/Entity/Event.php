@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -19,6 +20,7 @@ class Event
     private $id;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -34,7 +36,8 @@ class Event
     private $end_date;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=20, unique=true)
      */
     private $slug;
 
@@ -56,6 +59,7 @@ class Event
     /**
      * @var Profile The profile this event.
      *
+     * @Assert\NotNull
      * @ORM\ManyToOne(targetEntity="Profile", inversedBy="events")
      */
      public $profile;
@@ -65,7 +69,7 @@ class Event
       *
       * @ORM\OneToMany(targetEntity="Service", mappedBy="event", cascade={"persist", "remove"})
       */
-    public $services;  
+    public $services;
 
     public function getId(): ?int
     {

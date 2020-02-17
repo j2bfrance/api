@@ -11,10 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Service
 {
-  const ATTENDEE_TICKET_KIND = 'attendee_ticket';
-  const PUBLIC_TICKET_KIND = 'public_ticket';
-  const BEER_TICKET_KIND = 'beer_ticket';
-  const VOLUNTEER_TICKET_KIND = 'volunteer_ticket';
+  const SERVICE_ATTENDEE_KIND = 'service_attendee';
+  const SERVICE_PUBLIC_KIND = 'service_public';
+  const SERVICE_BEER_KIND = 'service_beer';
+  const SERVICE_TSHIRT_KIND = 'service_tshirt';
+  const SERVICE_VOLUNTEER_KIND = 'service_volunteer';
 
     /**
      * @ORM\Id()
@@ -59,6 +60,16 @@ class Service
      * @ORM\ManyToOne(targetEntity="Event", inversedBy="services")
      */
     public $event;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $store_product_id;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status = true;
 
     public function getId(): ?int
     {
@@ -133,6 +144,30 @@ class Service
     public function setNosql(?string $nosql): self
     {
         $this->nosql = $nosql;
+
+        return $this;
+    }
+
+    public function getStoreProductId(): ?string
+    {
+        return $this->store_product_id;
+    }
+
+    public function setStoreProductId(?string $store_product_id): self
+    {
+        $this->store_product_id = $store_product_id;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

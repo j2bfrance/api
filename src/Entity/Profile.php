@@ -6,8 +6,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -24,6 +24,7 @@ class Profile
     private $id;
 
     /**
+     * @Assert\Email
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -51,7 +52,7 @@ class Profile
     public $events;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     private $reference;
 
